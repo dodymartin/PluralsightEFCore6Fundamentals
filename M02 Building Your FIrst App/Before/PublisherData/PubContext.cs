@@ -11,7 +11,6 @@ public class PubContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(
-            "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PubDatabase"
-            );
+            "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PubDatabase");
     }
 }
