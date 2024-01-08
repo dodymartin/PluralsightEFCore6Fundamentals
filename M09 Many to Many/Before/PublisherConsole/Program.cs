@@ -2,6 +2,6 @@
 using PublisherData;
 using PublisherDomain;
 
-PubContext _context = new PubContext(); //existing database
+PubContext _context = new(); //existing database
 
 
