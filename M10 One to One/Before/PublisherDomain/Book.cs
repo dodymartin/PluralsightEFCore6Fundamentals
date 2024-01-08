@@ -9,5 +9,6 @@
         public Author Author { get; set; }
         //other properties
         public int AuthorId { get; set; }
+        public Cover Cover {get;set;}
     }
 }

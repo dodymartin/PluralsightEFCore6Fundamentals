@@ -14,7 +14,7 @@ namespace PublisherData
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-              "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PubDatabase"
+              "Data Source = localhost\\SQLEXPRESS; Initial Catalog = PubDatabase;Trusted_Connection=true"
             ).LogTo(Console.WriteLine,
                     new[] { DbLoggerCategory.Database.Command.Name },
                     LogLevel.Information)
@@ -48,9 +48,9 @@ namespace PublisherData
                 new Artist {ArtistId = 3, FirstName ="Katharine", LastName="Kuharic"} };
             modelBuilder.Entity<Artist>().HasData(someArtists);
             var someCovers = new Cover[]{
-                new Cover {CoverId = 1, DesignIdeas="How about a left hand in the dark?", DigitalOnly=false},
-                new Cover {CoverId = 2, DesignIdeas= "Should we put a clock?", DigitalOnly=true},
-                new Cover {CoverId = 3, DesignIdeas="A big ear in the clouds?", DigitalOnly = false}};
+                new Cover {CoverId = 1, BookId = 3, DesignIdeas="How about a left hand in the dark?", DigitalOnly=false},
+                new Cover {CoverId = 2, BookId = 2, DesignIdeas= "Should we put a clock?", DigitalOnly=true},
+                new Cover {CoverId = 3, BookId = 1, DesignIdeas="A big ear in the clouds?", DigitalOnly = false}};
             modelBuilder.Entity<Cover>().HasData(someCovers);
 
             //example of mapping skip navigation with payload
