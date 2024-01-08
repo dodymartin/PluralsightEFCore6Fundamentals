@@ -14,7 +14,7 @@ namespace PublisherData
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-              "Data Source = localhost\\SQLEXPRESS; Initial Catalog = PubDatabase;Trusted_Connection=true"
+              "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PubDatabase;Trusted_Connection=true"
             ).LogTo(Console.WriteLine,
                     new[] { DbLoggerCategory.Database.Command.Name },
                     LogLevel.Information)

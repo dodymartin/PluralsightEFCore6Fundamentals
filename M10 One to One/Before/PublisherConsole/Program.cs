@@ -4,6 +4,59 @@ using PublisherDomain;
 
 PubContext _context = new PubContext(); //existing database
 
+//GetAllBooksWithTheirCovers();
+
+void GetAllBooksWithTheirCovers()
+{
+    var booksAndCovers = _context.Books.Include(b => b.Cover).ToList();
+    booksAndCovers.ForEach(book =>
+        Console.WriteLine(
+            book.Title +
+            (book.Cover == null ? ": No cover yet" : ":" + book.Cover.DesignIdeas)));
+}
+
+MultiLevelInclude();
+void MultiLevelInclude()
+{
+    var authorGraph = _context.Authors.AsNoTracking()
+        .Include(a => a.Books)
+        .ThenInclude(b => b.Cover)
+        .ThenInclude(c => c.Artists)
+        .FirstOrDefault(a => a.AuthorId == 1);
+
+    Console.WriteLine(authorGraph?.FirstName + " " + authorGraph?.LastName);
+    foreach (var book in authorGraph.Books)
+    {
+        Console.WriteLine("Book: " + book.Title);
+        if (book.Cover != null)
+        {
+            Console.WriteLine("Design Ideas: " + book.Cover.DesignIdeas);
+            Console.WriteLine("Artist(s): ");
+            book.Cover.Artists.ForEach(a => Console.Write(a.LastName + ""));
+        }
+    }
+}
+
+//NewBookAndCover();
+
+void NewBookAndCover()
+{
+    var book = new Book
+    {
+        AuthorId = 1,
+        Title = "Call Me Ishtar",
+        PublishDate = new DateTime(1973, 1, 1)
+    };
+
+    book.Cover = new Cover
+    {
+        DesignIdeas = "Image of Ishtar?"
+    };
+    _context.Books.Add(book);
+    _context.SaveChanges();
+}
+
+
 //UnAssignAnArtistFromACover();
 void UnAssignAnArtistFromACover()
 {
@@ -25,7 +78,7 @@ void DeleteAnObjectThatsInARelationship()
     _context.SaveChanges();
 }
 
-ReassignACover();
+//ReassignACover();
 
 void ReassignACover()
 {
@@ -33,7 +86,7 @@ void ReassignACover()
     .Include(c => c.Artists.Where(a => a.ArtistId == 4))
     .FirstOrDefault(c => c.CoverId == 5);
 
-    coverwithartist4.Artists.RemoveAt(0);  
+    coverwithartist4.Artists.RemoveAt(0);
     var artist3 = _context.Artists.Find(3);
     coverwithartist4.Artists.Add(artist3);
     _context.ChangeTracker.DetectChanges();
