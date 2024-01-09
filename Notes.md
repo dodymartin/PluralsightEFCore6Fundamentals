@@ -63,3 +63,21 @@ DbContext has a ConfigureConventions virtual method with a configurationBuilder 
 configurationBuilder.Properties\<string\>().HaveColumnType("varchar(100)");
 
 configurationBuilder.Properties\<BookGenre\>().HaveConversion\<string\>();
+
+### Module 15
+
+SaveChanges is always wrapped in a DB Transaction.
+
+Override with an ADO.NET database transaction.
+
+Control workflow of default via Database.Transaction
+
+Override with System.Transactions
+
+![Alt text](image-6.png)
+
+#### Concurrency Info
+
+![Alt text](image-7.png)
+
+![Alt text](image-8.png)
