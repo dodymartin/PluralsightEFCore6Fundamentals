@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using PublisherDomain;
 
 namespace PublisherData
@@ -12,15 +11,9 @@ namespace PublisherData
         public DbSet<Cover> Covers { get; set; }
         public DbSet<AuthorByArtist> AuthorsByArtist { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(
-              "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PubDatabase"
-            ).LogTo(Console.WriteLine,
-                    new[] { DbLoggerCategory.Database.Command.Name},
-                    LogLevel.Information)
-            .EnableSensitiveDataLogging();
-        }
+        public PubContext(DbContextOptions<PubContext> options) 
+            : base(options) 
+        { }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

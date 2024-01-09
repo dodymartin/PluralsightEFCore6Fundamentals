@@ -36,3 +36,7 @@ Keyless entities are always read-only, and they will never be tracked.  This mea
 ![Alt text](image-4.png)
 
 ![Alt text](image-5.png)
+
+### Module 12
+
+If you do an include in a web api and return you can get a SerializerCycleDetected Exception.  This can be fixed by setting the JsonOptions to IgnoreCycles
