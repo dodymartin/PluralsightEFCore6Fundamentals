@@ -40,3 +40,26 @@ Keyless entities are always read-only, and they will never be tracked.  This mea
 ### Module 12
 
 If you do an include in a web api and return you can get a SerializerCycleDetected Exception.  This can be fixed by setting the JsonOptions to IgnoreCycles
+
+### Module 14
+
+EF Core mappings are impacted by the nullability of the property.
+
+IsRequired affects the db but not the compiler.
+
+You can use .Ignore to tell EF Core not to map a property.
+
+AutoInclude => You want it to always include a child set when you query.
+modelBuilder.Entity\<Author>\().AutoInclude(a => a.Books);
+
+Enums are persisted as integers by default.  You can also use a ValueConversion to convert them to a string.
+
+HasConversion\<string\>();
+
+HasConversion(c => c.ToString(), s=> Color.FromName(s));
+
+DbContext has a ConfigureConventions virtual method with a configurationBuilder for example:
+
+configurationBuilder.Properties\<string\>().HaveColumnType("varchar(100)");
+
+configurationBuilder.Properties\<BookGenre\>().HaveConversion\<string\>();
