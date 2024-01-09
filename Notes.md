@@ -81,3 +81,21 @@ Override with System.Transactions
 ![Alt text](image-7.png)
 
 ![Alt text](image-8.png)
+
+EF Core has built in Connection Resiliency have to add options.EnableRetryOnFailure();
+
+### Module 16
+
+SaveChanges can be overridden if you want to do something just before or just after.  There are also lifecycle events right before save, after, and on fail.
+
+Can use Shadow Properties to keep track of created and changed user and timestamp.
+
+Shadow properties can only be set on the change tracker.
+
+You can also use interceptors like below:
+
+![Alt text](image-9.png)
+
+ANother use of interceptors is to enable soft deletes.
+
+![Alt text](image-10.png)
